@@ -3,4 +3,9 @@ import GameMap from "../../../components/GameMap";
 import map_image from "../../../assets/images/maps/kyoto.png";
 ---
 
-<GameMap mapImageURL="/images/maps/kyoto.png" client:only="react" />
+<GameMap mapImageURL="/images/maps/kyoto.png" spawns={[]} cashouts={[
+    {
+        position: [50, 50],
+        popup: "Some cashout",
+    }
+]} client:only="react" />
