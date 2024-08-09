@@ -1,9 +1,15 @@
 import { useState } from "react";
 
-import { ImageOverlay, MapContainer, Marker, Popup } from "react-leaflet";
+import {
+  ImageOverlay,
+  MapContainer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
-import { Icon, LatLngExpression } from "leaflet";
+import { Icon, LatLngExpression, Map } from "leaflet";
 
 interface NamedLocation {
   popup: string;
@@ -16,19 +22,40 @@ export interface GameMapProps {
   spawns: NamedLocation[];
 }
 
+interface CashoutIconProps {
+  position: LatLngExpression;
+  popup: string;
+}
+
+function CashoutIcon({ position, popup }: CashoutIconProps) {
+  const [zoomLevel, setZoomLevel] = useState(3);
+
+  const mapEvents = useMapEvents({
+    zoomend: () => {
+      setZoomLevel(mapEvents.getZoom());
+    },
+  });
+
+  const cashoutIcon = new Icon({
+    iconUrl: "/map-icons/cashout.png",
+    iconSize: [10 * zoomLevel, 10 * zoomLevel],
+  });
+
+  return (
+    <Marker position={position} icon={cashoutIcon}>
+      <Popup>{popup}</Popup>
+    </Marker>
+  );
+}
+
 export default function GameMap({
   mapImageURL,
   cashouts,
   spawns,
 }: GameMapProps) {
-  const cashoutIcon = new Icon({
-    iconUrl: "/map-icons/cashout.png",
-    iconSize: [40, 40],
-  });
-
   return (
     <MapContainer
-      zoom={3}
+      zoom={2}
       center={[50, 50]}
       bounds={[
         [0, 0],
@@ -45,11 +72,7 @@ export default function GameMap({
       />
 
       {cashouts.map((loc) => {
-        return (
-          <Marker position={loc.position} icon={cashoutIcon}>
-            <Popup>{loc.popup}</Popup>
-          </Marker>
-        );
+        return <CashoutIcon position={loc.position} popup={loc.popup} />;
       })}
     </MapContainer>
   );
