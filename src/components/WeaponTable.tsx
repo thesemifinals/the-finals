@@ -144,9 +144,9 @@ export default function WeaponTableProps({
     },
     {
       leftTitle: "Mag Size",
-      leftValue: magSize.toString(),
+      leftValue: magSize.toFixed(0),
       rightTitle: "Reload Time",
-      rightValue: reloadTime.toString() + " seconds",
+      rightValue: reloadTime.toFixed(1) + " seconds",
     },
     {
       leftTitle: "Damage (Body)",
@@ -156,13 +156,13 @@ export default function WeaponTableProps({
     },
     {
       leftTitle: "Falloff (Start)",
-      leftValue: falloffStart.toString() + "m",
+      leftValue: falloffStart.toFixed(1) + "m",
       rightTitle: "Falloff (Max)",
-      rightValue: falloffMax.toString() + "m",
+      rightValue: falloffMax.toFixed(1) + "m",
     },
     {
       leftTitle: "Max Falloff",
-      leftValue: (maxFalloffMultiplier * 100).toString() + "%",
+      leftValue: (maxFalloffMultiplier * 100).toFixed(1) + "%",
     },
   ];
   return <Table title={name} rows={rows} />;
