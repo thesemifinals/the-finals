@@ -2,24 +2,11 @@ import type { CSSProperties, ReactElement } from "react";
 import styled from "styled-components";
 
 import "./style.css";
+import type { WeaponResource } from "../data/resources/weapons";
 
 export interface WeaponTableProps {
-  name: string;
-  build: string;
-  family: string;
-  magSize: number;
-  reloadTime: number;
-  damageBody: number;
-  damageHead: number;
-  falloffStart: number;
-  falloffMax: number;
-  maxFalloffMultiplier: number;
+  weapon: WeaponResource;
 }
-
-const boxStyle = {
-  outline: "0.1em solid grey",
-  paddingLeft: "0.5em",
-};
 
 interface ContainerProps {
   children: ReactElement | ReactElement[];
@@ -66,9 +53,9 @@ function Box({ children, style, gridColumn }: BoxProps) {
 
 interface RowProps {
   leftTitle?: string;
-  leftValue?: string;
+  leftValue?: string | ReactElement;
   rightTitle?: string;
-  rightValue?: string;
+  rightValue?: string | ReactElement;
 }
 
 function Row({ leftTitle, leftValue, rightTitle, rightValue }: RowProps) {
@@ -128,47 +115,36 @@ function Table({ title, rows }: TableProps) {
   );
 }
 
-export default function WeaponTableProps({
-  name,
-  build,
-  family,
-  magSize,
-  reloadTime,
-  damageBody,
-  damageHead,
-  falloffMax,
-  falloffStart,
-  maxFalloffMultiplier,
-}: WeaponTableProps) {
+export default function WeaponTableProps({ weapon }: WeaponTableProps) {
   const rows: RowProps[] = [
     {
       leftTitle: "Build",
-      leftValue: build,
+      leftValue: <a href={weapon.build.link}>{weapon.build.name}</a>,
       rightTitle: "Family",
-      rightValue: family,
+      rightValue: weapon.family,
     },
     {
       leftTitle: "Mag Size",
-      leftValue: magSize.toFixed(0),
+      leftValue: weapon.magazineSize.toFixed(0),
       rightTitle: "Reload Time",
-      rightValue: reloadTime.toFixed(1) + " seconds",
+      rightValue: weapon.reloadTime.toFixed(1) + " seconds",
     },
     {
       leftTitle: "Damage (Body)",
-      leftValue: damageBody.toString(),
+      leftValue: weapon.damage.damageBody.toString(),
       rightTitle: "Damage (Head)",
-      rightValue: damageHead.toString(),
+      rightValue: weapon.damage.damageHead.toString(),
     },
     {
       leftTitle: "Falloff (Start)",
-      leftValue: falloffStart.toFixed(1) + "m",
+      leftValue: weapon.damage.falloffStart.toFixed(1) + "m",
       rightTitle: "Falloff (Max)",
-      rightValue: falloffMax.toFixed(1) + "m",
+      rightValue: weapon.damage.falloffMax.toFixed(1) + "m",
     },
     {
       leftTitle: "Max Falloff",
-      leftValue: (maxFalloffMultiplier * 100).toFixed(1) + "%",
+      leftValue: (weapon.damage.maxFalloffMultiplier * 100).toFixed(1) + "%",
     },
   ];
-  return <Table title={name} rows={rows} />;
+  return <Table title={weapon.name} rows={rows} />;
 }
