@@ -90,29 +90,32 @@ function Row({ leftTitle, leftValue, rightTitle, rightValue }: RowProps) {
   return boxes;
 }
 
+function GetRows(rows: RowProps[]) {
+  return rows
+    .map((row) => {
+      return Row(row);
+    })
+    .flat(1);
+}
+
 interface TableProps {
   title: string;
   rows: RowProps[];
 }
 
 function Table({ title, rows }: TableProps) {
-  return (
-    <Container>
-      <Box
-        gridColumn="1/101"
-        style={{
-          textAlign: "center",
-        }}
-      >
-        <b>{title}</b>
-      </Box>
-      {...rows
-        .map((row) => {
-          return Row(row);
-        })
-        .flat(1)}
-    </Container>
-  );
+  const elements = [
+    <Box
+      gridColumn="1/101"
+      style={{
+        textAlign: "center",
+      }}
+    >
+      <b>{title}</b>
+    </Box>,
+    ...GetRows(rows),
+  ];
+  return <Container>{elements}</Container>;
 }
 
 export default function WeaponTableProps({ weapon }: WeaponTableProps) {
