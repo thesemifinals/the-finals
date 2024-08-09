@@ -1,6 +1,8 @@
 import type { CSSProperties, ReactElement } from "react";
 import styled from "styled-components";
 
+import "./style.css";
+
 export interface WeaponTableProps {
   name: string;
   build: string;
@@ -31,6 +33,9 @@ function Container({ children }: ContainerProps) {
         gridTemplateColumns: "repeat(100, 1fr)",
         gridAutoRows: "minmax(1em, auto)",
         gap: "0px",
+        fontFamily: '"Bebas Neue", sans-serif',
+        fontWeight: 400,
+        fontStyle: "normal",
       }}
     >
       {children}
