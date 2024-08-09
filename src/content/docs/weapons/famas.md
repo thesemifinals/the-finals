@@ -5,7 +5,7 @@ description: "A Medium burst rifle."
 
 The FAMAS is a burst rifle for the Medium class.
 
-## Overview
+## General
 
 | Attribute   | Value         |
 | ----------- | ------------- |
