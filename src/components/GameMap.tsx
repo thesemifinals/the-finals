@@ -56,7 +56,7 @@ export default function GameMap({
 }: GameMapProps) {
   return (
     <MapContainer
-      zoom={2}
+      zoom={3}
       center={[50, 50]}
       bounds={[
         [0, 0],
