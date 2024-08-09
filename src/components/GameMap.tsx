@@ -9,7 +9,8 @@ import {
 } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
-import { Icon, LatLngExpression, Map } from "leaflet";
+import { Icon, Map } from "leaflet";
+import type { LatLngExpression } from "leaflet";
 
 interface NamedLocation {
   popup: string;
