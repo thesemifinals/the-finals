@@ -1,3 +1,4 @@
+import type { CSSProperties, ReactElement } from "react";
 import styled from "styled-components";
 
 export interface WeaponTableProps {
@@ -18,6 +19,110 @@ const boxStyle = {
   paddingLeft: "0.5em",
 };
 
+interface ContainerProps {
+  children: ReactElement | ReactElement[];
+}
+
+function Container({ children }: ContainerProps) {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(100, 1fr)",
+        gridAutoRows: "minmax(1em, auto)",
+        gap: "0px",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+interface BoxProps {
+  children: ReactElement | ReactElement[];
+  style?: CSSProperties;
+  gridColumn: string;
+}
+
+function Box({ children, style, gridColumn }: BoxProps) {
+  return (
+    <div
+      style={{
+        gridColumn: gridColumn,
+        outline: "0.1em solid grey",
+        paddingLeft: "0.5em",
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+interface RowProps {
+  leftTitle?: string;
+  leftValue?: string;
+  rightTitle?: string;
+  rightValue?: string;
+}
+
+function Row({ leftTitle, leftValue, rightTitle, rightValue }: RowProps) {
+  const boxes = [];
+
+  if (leftValue) {
+    boxes.push(
+      <Box gridColumn="1/23">
+        <b>{leftTitle}</b>
+      </Box>
+    );
+    boxes.push(
+      <Box gridColumn="23/46">
+        <p>{leftValue}</p>
+      </Box>
+    );
+  }
+
+  if (rightValue) {
+    boxes.push(
+      <Box gridColumn="54/77">
+        <b>{rightTitle}</b>
+      </Box>
+    );
+    boxes.push(
+      <Box gridColumn="77/101">
+        <p>{rightValue}</p>
+      </Box>
+    );
+  }
+
+  return boxes;
+}
+
+interface TableProps {
+  title: string;
+  rows: RowProps[];
+}
+
+function Table({ title, rows }: TableProps) {
+  return (
+    <Container>
+      <Box
+        gridColumn="1/101"
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <b>{title}</b>
+      </Box>
+      {...rows
+        .map((row) => {
+          return Row(row);
+        })
+        .flat(1)}
+    </Container>
+  );
+}
+
 export default function WeaponTableProps({
   name,
   build,
@@ -30,82 +135,35 @@ export default function WeaponTableProps({
   falloffStart,
   maxFalloffMultiplier,
 }: WeaponTableProps) {
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(100, 1fr)",
-        gridAutoRows: "minmax(1em, auto)",
-        gap: "0px",
-      }}
-    >
-      <div
-        style={{
-          gridRow: 1,
-          gridColumn: "1/100",
-          textAlign: "center",
-          ...boxStyle,
-        }}
-      >
-        {name}
-      </div>
-      <div style={{ gridRow: 2, gridColumn: "1/23", ...boxStyle }}>
-        <b>Build</b>
-      </div>
-      <div style={{ gridRow: 2, gridColumn: "23/46", ...boxStyle }}>
-        {build}
-      </div>
-      <div style={{ gridRow: 2, gridColumn: "54/77", ...boxStyle }}>
-        <b>Family</b>
-      </div>
-      <div style={{ gridRow: 2, gridColumn: "77/100", ...boxStyle }}>
-        {family}
-      </div>
-      <div style={{ gridRow: 3, gridColumn: "1/23", ...boxStyle }}>
-        <b>Mag Size</b>
-      </div>
-      <div style={{ gridRow: 3, gridColumn: "23/46", ...boxStyle }}>
-        {magSize}
-      </div>
-      <div style={{ gridRow: 3, gridColumn: "54/77", ...boxStyle }}>
-        <b>Reload Time</b>
-      </div>
-      <div style={{ gridRow: 3, gridColumn: "77/100", ...boxStyle }}>
-        {reloadTime.toString() + " seconds"}
-      </div>
-
-      <div style={{ gridRow: 4, gridColumn: "1/23", ...boxStyle }}>
-        <b>Damage Body</b>
-      </div>
-      <div style={{ gridRow: 4, gridColumn: "23/46", ...boxStyle }}>
-        {damageBody}
-      </div>
-      <div style={{ gridRow: 4, gridColumn: "54/77", ...boxStyle }}>
-        <b>Damage Head</b>
-      </div>
-      <div style={{ gridRow: 4, gridColumn: "77/100", ...boxStyle }}>
-        {damageHead}
-      </div>
-
-      <div style={{ gridRow: 5, gridColumn: "1/23", ...boxStyle }}>
-        <b>Falloff Start</b>
-      </div>
-      <div style={{ gridRow: 5, gridColumn: "23/46", ...boxStyle }}>
-        {falloffStart.toString() + "m"}
-      </div>
-      <div style={{ gridRow: 5, gridColumn: "54/77", ...boxStyle }}>
-        <b>Falloff Max</b>
-      </div>
-      <div style={{ gridRow: 5, gridColumn: "77/100", ...boxStyle }}>
-        {falloffMax.toString() + "m"}
-      </div>
-
-      <div style={{ gridRow: 6, gridColumn: "1/23", ...boxStyle }}>
-        <b>Max Falloff</b>
-      </div>
-      <div style={{ gridRow: 6, gridColumn: "23/46", ...boxStyle }}>
-        {(maxFalloffMultiplier * 100).toString() + "%"}
-      </div>
-    </div>
-  );
+  const rows: RowProps[] = [
+    {
+      leftTitle: "Build",
+      leftValue: build,
+      rightTitle: "Family",
+      rightValue: family,
+    },
+    {
+      leftTitle: "Mag Size",
+      leftValue: magSize.toString(),
+      rightTitle: "Reload Time",
+      rightValue: reloadTime.toString() + " seconds",
+    },
+    {
+      leftTitle: "Damage (Body)",
+      leftValue: damageBody.toString(),
+      rightTitle: "Damage (Head)",
+      rightValue: damageHead.toString(),
+    },
+    {
+      leftTitle: "Falloff (Start)",
+      leftValue: falloffStart.toString() + "m",
+      rightTitle: "Falloff (Max)",
+      rightValue: falloffMax.toString() + "m",
+    },
+    {
+      leftTitle: "Max Falloff",
+      leftValue: (maxFalloffMultiplier * 100).toString() + "%",
+    },
+  ];
+  return <Table title={name} rows={rows} />;
 }
