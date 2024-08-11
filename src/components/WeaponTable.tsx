@@ -43,6 +43,7 @@ function Box({ children, style, gridColumn }: BoxProps) {
         gridColumn: gridColumn,
         outline: "0.1em solid grey",
         paddingLeft: "0.5em",
+        margin: "0.05em",
         ...style,
       }}
     >
@@ -63,25 +64,31 @@ function Row({ leftTitle, leftValue, rightTitle, rightValue }: RowProps) {
 
   if (leftValue) {
     boxes.push(
-      <Box gridColumn="1/23">
+      <Box gridColumn="1/24">
         <b>{leftTitle}</b>
       </Box>
     );
     boxes.push(
-      <Box gridColumn="23/46">
+      <Box gridColumn="24/48">
         <p>{leftValue}</p>
       </Box>
     );
   }
 
+  boxes.push(
+    <Box gridColumn="48/52" style={{ backgroundColor: "grey" }}>
+      <div></div>
+    </Box>
+  );
+
   if (rightValue) {
     boxes.push(
-      <Box gridColumn="54/77">
+      <Box gridColumn="52/76">
         <b>{rightTitle}</b>
       </Box>
     );
     boxes.push(
-      <Box gridColumn="77/101">
+      <Box gridColumn="76/101">
         <p>{rightValue}</p>
       </Box>
     );
@@ -138,20 +145,25 @@ export default function WeaponTableProps({ weapon }: WeaponTableProps) {
       rightTitle: "Damage (Head)",
       rightValue: weapon.damage.damageHead?.toString(),
     },
-    {
-      leftTitle: "Falloff (Start)",
-      leftValue: weapon.damage.falloff?.start.toFixed(1) + "m",
-      rightTitle: "Falloff (Max)",
-      rightValue: weapon.damage.falloff?.end.toFixed(1) + "m",
-    },
-    {
-      leftTitle: "Max Falloff",
-      leftValue:
-        (weapon.damage.falloff
-          ? weapon.damage.falloff.maxMultiplier * 100
-          : 0
-        ).toFixed(1) + "%",
-    },
   ];
+
+  if (weapon.damage.falloff) {
+    rows.push(
+      {
+        leftTitle: "Falloff (Start)",
+        leftValue: weapon.damage.falloff?.start.toFixed(1) + "m",
+        rightTitle: "Falloff (Max)",
+        rightValue: weapon.damage.falloff?.end.toFixed(1) + "m",
+      },
+      {
+        leftTitle: "Max Falloff",
+        leftValue:
+          (weapon.damage.falloff
+            ? weapon.damage.falloff.maxMultiplier * 100
+            : 0
+          ).toFixed(1) + "%",
+      }
+    );
+  }
   return <Table title={weapon.name} rows={rows} />;
 }
