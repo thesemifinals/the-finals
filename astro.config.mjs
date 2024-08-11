@@ -13,9 +13,6 @@ export default defineConfig({
     react(),
     starlight({
       title: "The SemiFinals",
-      components: {
-        Header: "./src/components/overrides/Header.astro",
-      },
       logo: {
         src: "./src/assets/cash-vault.png",
       },
