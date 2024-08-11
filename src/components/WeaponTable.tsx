@@ -146,7 +146,11 @@ export default function WeaponTableProps({ weapon }: WeaponTableProps) {
     },
     {
       leftTitle: "Max Falloff",
-      leftValue: (weapon.damage.falloff?.maxMultiplier * 100).toFixed(1) + "%",
+      leftValue:
+        (weapon.damage.falloff
+          ? weapon.damage.falloff.maxMultiplier * 100
+          : 0
+        ).toFixed(1) + "%",
     },
   ];
   return <Table title={weapon.name} rows={rows} />;
