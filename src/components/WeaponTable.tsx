@@ -136,17 +136,17 @@ export default function WeaponTableProps({ weapon }: WeaponTableProps) {
       leftTitle: "Damage (Body)",
       leftValue: weapon.damage.damageBody.toString(),
       rightTitle: "Damage (Head)",
-      rightValue: weapon.damage.damageHead.toString(),
+      rightValue: weapon.damage.damageHead?.toString(),
     },
     {
       leftTitle: "Falloff (Start)",
-      leftValue: weapon.damage.falloffStart.toFixed(1) + "m",
+      leftValue: weapon.damage.falloff?.start.toFixed(1) + "m",
       rightTitle: "Falloff (Max)",
-      rightValue: weapon.damage.falloffMax.toFixed(1) + "m",
+      rightValue: weapon.damage.falloff?.end.toFixed(1) + "m",
     },
     {
       leftTitle: "Max Falloff",
-      leftValue: (weapon.damage.maxFalloffMultiplier * 100).toFixed(1) + "%",
+      leftValue: (weapon.damage.falloff?.maxMultiplier * 100).toFixed(1) + "%",
     },
   ];
   return <Table title={weapon.name} rows={rows} />;

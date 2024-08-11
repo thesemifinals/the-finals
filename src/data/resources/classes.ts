@@ -20,7 +20,7 @@ export const classHeavy: ClassResource = {
   slug: "classes/heavy",
 };
 
-export const allClasses: ClassResource[] = [
+export const AllClasses: ClassResource[] = [
   classLight,
   classMedium,
   classHeavy,

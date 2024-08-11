@@ -4,6 +4,8 @@ import react from "@astrojs/react";
 import starlightBlog from "starlight-blog";
 
 import netlify from "@astrojs/netlify";
+import { AllWeapons } from "./src/data/resources/weapons";
+import { AllClasses } from "./src/data/resources/classes";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +13,9 @@ export default defineConfig({
     react(),
     starlight({
       title: "The SemiFinals",
+      components: {
+        Header: "./src/components/overrides/Header.astro",
+      },
       logo: {
         src: "./src/assets/cash-vault.png",
       },
@@ -55,53 +60,21 @@ export default defineConfig({
         },
         {
           label: "Weapons",
-          items: [
-            {
-              label: "AKM",
-              slug: "weapons/akm",
-            },
-            {
-              label: "CL-40",
-              slug: "weapons/cl-40",
-            },
-            {
-              label: "Dual Blades",
-              slug: "weapons/dual-blades",
-            },
-            {
-              label: "FAMAS",
-              slug: "weapons/famas",
-            },
-            {
-              label: "FCAR",
-              slug: "weapons/fcar",
-            },
-            {
-              label: "Model 1887",
-              slug: "weapons/model-1887",
-            },
-            {
-              label: "R.357",
-              slug: "weapons/r357",
-            },
-          ],
+          items: AllWeapons.map((weapon) => {
+            return {
+              label: weapon.name,
+              slug: weapon.slug,
+            };
+          }),
         },
         {
           label: "Classes",
-          items: [
-            {
-              label: "Light",
-              slug: "classes/light",
-            },
-            {
-              label: "Medium",
-              slug: "classes/medium",
-            },
-            {
-              label: "Heavy",
-              slug: "classes/heavy",
-            },
-          ],
+          items: AllClasses.map((cls) => {
+            return {
+              label: cls.name,
+              slug: cls.slug,
+            };
+          }),
         },
       ],
       plugins: [starlightBlog()],
