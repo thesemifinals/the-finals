@@ -6,6 +6,7 @@ import starlightBlog from "starlight-blog";
 import netlify from "@astrojs/netlify";
 import { AllWeapons } from "./src/data/resources/weapons";
 import { AllClasses } from "./src/data/resources/classes";
+import { AllGadgets } from "./src/data/resources/gadgets";
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,7 +32,7 @@ export default defineConfig({
             // Each item here is one entry in the navigation menu.
             {
               label: "Kyoto",
-              slug: "maps/kyoto/index",
+              slug: "maps/kyoto",
             },
             {
               label: "Las Vegas",
@@ -61,6 +62,15 @@ export default defineConfig({
             return {
               label: weapon.name,
               slug: weapon.slug,
+            };
+          }),
+        },
+        {
+          label: "Gadgets",
+          items: AllGadgets.map((gadget) => {
+            return {
+              label: gadget.name,
+              slug: gadget.slug,
             };
           }),
         },

@@ -9,7 +9,7 @@ export default function WeaponsForClass({ cls }: WeaponsForClassProps) {
   return (
     <ul>
       {weapons.map((weapon) => (
-        <li>
+        <li key={weapon.name}>
           <a href={weapon.link}>{weapon.name}</a>
         </li>
       ))}
