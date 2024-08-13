@@ -57,6 +57,15 @@ export default defineConfig({
           ],
         },
         {
+          label: "Classes",
+          items: AllClasses.map((cls) => {
+            return {
+              label: cls.name,
+              slug: cls.slug,
+            };
+          }),
+        },
+        {
           label: "Weapons",
           items: AllWeapons.map((weapon) => {
             return {
@@ -71,15 +80,6 @@ export default defineConfig({
             return {
               label: gadget.name,
               slug: gadget.slug,
-            };
-          }),
-        },
-        {
-          label: "Classes",
-          items: AllClasses.map((cls) => {
-            return {
-              label: cls.name,
-              slug: cls.slug,
             };
           }),
         },

@@ -57,6 +57,15 @@ export const C4: GadgetResource = {
   builds: [classHeavy],
 };
 
+export const DataReshaper: GadgetResource = {
+  name: "Data Reshaper",
+  link: "/gadgets/data-reshaper",
+  slug: "gadgets/data-reshaper",
+  charges: 1,
+  rechargeTime: 20,
+  builds: [classMedium],
+};
+
 export const Defibrillator: GadgetResource = {
   name: "Defibrillator",
   link: "/gadgets/defibrillator",
@@ -237,6 +246,15 @@ export const TrackingDart: GadgetResource = {
   builds: [classLight],
 };
 
+export const VanishingBomb: GadgetResource = {
+  name: "Vanishing Bomb",
+  link: "/gadgets/vanishing-bomb",
+  slug: "gadgets/vanishing-bomb",
+  charges: 1,
+  rechargeTime: 20,
+  builds: [classLight],
+};
+
 export const Zipline: GadgetResource = {
   name: "Zipline",
   link: "/gadgets/zipline",
@@ -252,6 +270,7 @@ export const AllGadgets: GadgetResource[] = [
   Barricade,
   BreachCharge,
   C4,
+  DataReshaper,
   Defibrillator,
   DomeShield,
   ExplosiveMine,
@@ -272,5 +291,6 @@ export const AllGadgets: GadgetResource[] = [
   ThermalBore,
   ThermalVision,
   TrackingDart,
+  VanishingBomb,
   Zipline,
 ];
