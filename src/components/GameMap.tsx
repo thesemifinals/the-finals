@@ -133,18 +133,18 @@ export default function GameMap({ mapImageURL, markerSets }: GameMapProps) {
 
         {...RenderMarkers(markerSets, enabledMarkers)}
       </MapContainer>
-      <Checkbox.Group
-        style={{ width: "25%", marginLeft: "1em", color: "grey" }}
-        onChange={onSelectedMarkersChanged}
-      >
-        {Object.keys(markerSets).map((name) => {
-          return (
-            <Checkbox value={name} style={{ color: "grey", height: "1.5em" }}>
-              {name}
-            </Checkbox>
-          );
-        })}
-      </Checkbox.Group>
+      <Flex style={{ width: "30%", marginLeft: "1em", color: "grey" }} vertical>
+        <h5>Show/Hide Markers</h5>
+        <Checkbox.Group onChange={onSelectedMarkersChanged}>
+          {Object.keys(markerSets).map((name) => {
+            return (
+              <Checkbox value={name} style={{ color: "grey", height: "1.5em" }}>
+                {name}
+              </Checkbox>
+            );
+          })}
+        </Checkbox.Group>
+      </Flex>
     </Flex>
   );
 }

@@ -2,8 +2,21 @@
 import GameMap from "../../../../components/GameMap";
 ---
 
-<GameMap
-    mapImageURL="/images/maps/kyoto.png"
-    spawns={[]}
-    cashouts={[]}
-    client:only="react" />
+<GameMap mapImageURL="/images/maps/kyoto.png" markerSets={{
+    "Terminal Attack": {
+        cashouts: [
+            {
+                position: [46, 80],
+                popup: "Some cashout",
+            },
+            {
+                position: [46, 50],
+                popup: "A1",
+            },
+            {
+                position: [58, 38],
+                popup: "B1",
+            },
+        ],
+    },
+}} client:only="react" />
